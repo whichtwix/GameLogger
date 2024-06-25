@@ -10,7 +10,7 @@ namespace GameLogger
         [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.CoIntro))]
         [HarmonyPostfix]
 
-        public static void Start(ref GameData.PlayerInfo reporter, ref GameData.PlayerInfo reportedBody, ref Il2CppReferenceArray<GameData.PlayerInfo> deadBodies)
+        public static void Start(ref NetworkedPlayerInfo reporter, ref NetworkedPlayerInfo reportedBody, ref Il2CppReferenceArray<NetworkedPlayerInfo> deadBodies)
         {
             string action = reportedBody == null ? "This is a emergency meeting" : $"{Utils.FullName(reportedBody)}'s body was found";
             string bodytext = "Players died this round: ";

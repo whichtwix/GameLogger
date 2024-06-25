@@ -7,12 +7,12 @@ namespace GameLogger
 
     public class PlayerDataLogs
     {
-        [HarmonyPatch(typeof(GameData), nameof(GameData.SetTasks))]
+        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetTasks))]
         [HarmonyPostfix]
 
-        public static void Postfix(ref byte playerId)
+        public static void Postfix(PlayerControl __instance)
         {
-            if (PlayerControl.LocalPlayer.PlayerId != playerId) return;
+            if (PlayerControl.LocalPlayer.PlayerId != __instance.PlayerId) return;
             
             string roletext = "Player's Roles:\n";
             foreach (var player in PlayerControl.AllPlayerControls)
@@ -22,7 +22,7 @@ namespace GameLogger
             Utils.Write(roletext);
         }
 
-        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetRole))]
+        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CoSetRole))]
         [HarmonyPostfix]
 
         public static void CheckGuardianAngel(PlayerControl __instance, ref RoleTypes role)

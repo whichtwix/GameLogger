@@ -18,7 +18,7 @@ namespace GameLogger
             return ((MapNames)GameOptionsManager.Instance.currentNormalGameOptions.MapId).ToString();
         }
 
-        public static string FullName(GameData.PlayerInfo player)
+        public static string FullName(NetworkedPlayerInfo player)
         {
             return $"{player.PlayerName} {player.ColorName}";
         }
