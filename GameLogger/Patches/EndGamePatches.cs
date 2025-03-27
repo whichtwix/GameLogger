@@ -14,28 +14,28 @@ namespace GameLogger
             string text = "Winners: ";
             switch (__result.GameOverReason)
             {
-                case GameOverReason.HumansByVote:
+                case GameOverReason.CrewmatesByVote:
                     text += "Crewmates by voting out Impostors";
                     break;
-                case GameOverReason.HumansByTask:
+                case GameOverReason.CrewmatesByTask:
                     text += "Crewmates by task win";
                     break;
-                case GameOverReason.ImpostorByVote:
+                case GameOverReason.ImpostorsByVote:
                     text += "Impostors by voting out a crewmate";
                     break;
-                case GameOverReason.ImpostorByKill or GameOverReason.HideAndSeek_ByKills:
+                case GameOverReason.ImpostorsByKill or GameOverReason.HideAndSeek_ImpostorsByKills:
                     text += "Impostors by killing";
                     break;
-                case GameOverReason.ImpostorBySabotage:
+                case GameOverReason.ImpostorsBySabotage:
                     text += "Impostors by sabotage";
                     break;
-                case GameOverReason.HumansDisconnect:
+                case GameOverReason.CrewmateDisconnect:
                     text += "Impostors by a crewmate disconnect";
                     break;
                 case GameOverReason.ImpostorDisconnect:
                     text += "Crewmates by a impostor disconnect";
                     break;
-                case GameOverReason.HideAndSeek_ByTimer:
+                case GameOverReason.HideAndSeek_CrewmatesByTimer:
                     text += "Crewmates by reaching 0 hide time left";
                     break;
             }
