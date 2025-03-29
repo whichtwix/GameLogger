@@ -28,5 +28,20 @@ namespace GameLogger
         {
             Utils.Write($"{Utils.FullName(__instance.Data)} set protection on {Utils.FullName(target.Data)}");
         }
+
+        [HarmonyPatch(typeof(NoisemakerRole), nameof(NoisemakerRole.NotifyOfDeath))]
+        [HarmonyPostfix]
+
+        public static void NoiseMakerDeath(NoisemakerRole __instance)
+        {
+            if (!PlayerControl.LocalPlayer.AreCommsAffected())
+            {
+                Utils.Write($"{Utils.FullName(__instance.Player.Data)} has alerted the lobby of their death");
+            }
+            else if (PlayerControl.LocalPlayer.AreCommsAffected())
+            {
+                Utils.Write($"Comms Sabotage stopped {Utils.FullName(__instance.Player.Data)} from alerting the lobby of their death");
+            }
+        }
     }
 }
