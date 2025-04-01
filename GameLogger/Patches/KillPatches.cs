@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 
 namespace GameLogger
@@ -6,18 +7,33 @@ namespace GameLogger
 
     public class KillLogs
     {
+        public static Dictionary<string, int> ImpKills = [];
+
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
         [HarmonyPrefix]
 
         public static void Prefix(PlayerControl __instance, ref PlayerControl target, ref MurderResultFlags resultFlags)
         {
+            var killer = Utils.FullName(__instance.Data);
+            var victim = Utils.FullName(target.Data);
+            var location = Utils.GetLocation(target);
+
             if (resultFlags.HasFlag(MurderResultFlags.FailedProtected) || (resultFlags.HasFlag(MurderResultFlags.DecisionByHost) && target.protectedByGuardianId > -1))
             {
-                Utils.Write($"{Utils.FullName(__instance.Data)} failed to kill {Utils.FullName(target.Data)} {Utils.GetLocation(target)}");
+                Utils.Write($"{killer} failed to kill {victim} {location}");
             }
             else if (resultFlags.HasFlag(MurderResultFlags.Succeeded) || resultFlags.HasFlag(MurderResultFlags.DecisionByHost))
             {
-                Utils.Write($"{Utils.FullName(__instance.Data)} killed {Utils.FullName(target.Data)} {Utils.GetLocation(target)}");
+                Utils.Write($"{killer} killed {victim} {location}");
+
+                if (ImpKills.TryGetValue(killer, out int kills))
+                {
+                    ImpKills[killer] = kills + 1;
+                }
+                else
+                {
+                    ImpKills.Add(killer, 1);
+                }
             }
         }
 
@@ -34,13 +50,15 @@ namespace GameLogger
 
         public static void NoiseMakerDeath(NoisemakerRole __instance)
         {
+            var noisemaker = Utils.FullName(__instance.Player.Data);
+            
             if (!PlayerControl.LocalPlayer.AreCommsAffected())
             {
-                Utils.Write($"{Utils.FullName(__instance.Player.Data)} has alerted the lobby of their death");
+                Utils.Write($"{noisemaker} has alerted the lobby of their death");
             }
             else if (PlayerControl.LocalPlayer.AreCommsAffected())
             {
-                Utils.Write($"Comms Sabotage stopped {Utils.FullName(__instance.Player.Data)} from alerting the lobby of their death");
+                Utils.Write($"Comms Sabotage stopped {noisemaker} from alerting the lobby of their death");
             }
         }
     }

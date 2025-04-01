@@ -20,9 +20,10 @@ namespace GameLogger
                 File.AppendAllText($"GameLogs\\{DateTime.Now:u}_{Utils.GetMap()}.txt".Replace(":", "-"), game);
                 GameLogger.Builder.Clear();
             }
+            
             TimerLogs.Watch.Reset();
             TaskLogs.State = TaskLogs.TaskStates.None;
-
+            KillLogs.ImpKills.Clear();
         }
     }
 }

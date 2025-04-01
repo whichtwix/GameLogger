@@ -40,6 +40,8 @@ namespace GameLogger
                     break;
             }
             Utils.Write(text);
+
+            foreach (var killer in KillLogs.ImpKills) Utils.Write($"{killer.Key} killed {killer.Value} players");
         }
     }
 }
