@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Hazel;
 
 namespace GameLogger
 {
@@ -6,13 +7,13 @@ namespace GameLogger
     
     public class SabotageLogs
     {
-        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.AddSystemTask))]
+        [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.UpdateSystem), typeof(SystemTypes), typeof(PlayerControl), typeof(MessageReader))]
         [HarmonyPostfix]
 
-        public static void Start(ref SystemTypes system)
+        public static void Start(ref SystemTypes systemType, ref PlayerControl player)
         {
             string sabtext = "Sabotage started: ";
-            switch (system)
+            switch (systemType)
             {
                 case SystemTypes.Reactor or SystemTypes.Laboratory:
                     sabtext += "Reactor";
@@ -33,6 +34,7 @@ namespace GameLogger
                     sabtext += "Mushroom Mixup";
                     break;
             }
+            sabtext += $" by {Utils.FullName(player.Data)}";
             Utils.Write(sabtext);
         }
 
