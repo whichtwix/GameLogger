@@ -48,5 +48,18 @@ namespace GameLogger
                 Utils.Write(info);
             }
         }
+
+        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CompleteTask))]
+        [HarmonyPostfix]
+
+        public static void Postfix(PlayerControl __instance)
+        {
+            if (__instance.AllTasksCompleted())
+            {
+                var player = Utils.FullName(__instance.Data);
+                var info = $"{player} has completed all tasks";
+                Utils.Write(info);
+            }
+        }
     }
 }
