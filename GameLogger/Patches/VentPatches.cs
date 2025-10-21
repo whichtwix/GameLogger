@@ -101,6 +101,11 @@ namespace GameLogger
 
         public static void Enter(ref PlayerPhysics __instance, ref int id)
         {
+            if (GameOptionsManager.Instance.currentGameMode == AmongUs.GameOptions.GameModes.HideNSeek)
+            {
+                return;
+            }
+
             var player = Utils.FullName(__instance.myPlayer.Data);
             var vent = AllMapVents.TryGetValue(GameOptionsManager.Instance.currentNormalGameOptions.MapId, out var mapvents)
                 ? mapvents.TryGetValue(id, out var ventName) ? ventName : "Unknown Vent"
@@ -114,6 +119,11 @@ namespace GameLogger
 
         public static void Exit(ref PlayerPhysics __instance, ref int id)
         {
+            if (GameOptionsManager.Instance.currentGameMode == AmongUs.GameOptions.GameModes.HideNSeek)
+            {
+                return;
+            }
+
             var player = Utils.FullName(__instance.myPlayer.Data);
             var vent = AllMapVents.TryGetValue(GameOptionsManager.Instance.currentNormalGameOptions.MapId, out var mapvents)
                 ? mapvents.TryGetValue(id, out var ventName) ? ventName : "Unknown Vent"

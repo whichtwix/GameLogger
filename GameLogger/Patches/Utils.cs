@@ -15,6 +15,10 @@ namespace GameLogger
 
         public static string GetMap()
         {
+            if (GameOptionsManager.Instance.currentGameMode == AmongUs.GameOptions.GameModes.HideNSeek)
+            {
+                return ((MapNames)GameOptionsManager.Instance.currentHideNSeekGameOptions.MapId).ToString();
+            }
             return ((MapNames)GameOptionsManager.Instance.currentNormalGameOptions.MapId).ToString();
         }
 

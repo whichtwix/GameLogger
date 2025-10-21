@@ -5,7 +5,7 @@ using HarmonyLib;
 
 namespace GameLogger;
 
-[BepInAutoPlugin("com.whichtwix.gamelogger", "GameLogger", "1.2.0")]
+[BepInAutoPlugin("com.whichtwix.gamelogger", "GameLogger", "1.3.0")]
 [BepInProcess("Among Us.exe")]
 
 public partial class GameLogger : BasePlugin
