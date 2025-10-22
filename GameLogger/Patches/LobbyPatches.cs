@@ -14,7 +14,7 @@ namespace GameLogger
 
         public static void Postfix()
         {
-#if !ANDROID
+#if ANDROID
             if (GameLogger.Builder.Length > 0)
             {
                 if (!Directory.Exists("GameLogs")) Directory.CreateDirectory("GameLogs");
@@ -26,7 +26,7 @@ namespace GameLogger
             if (GameLogger.Builder.Length > 0)
             {
                 var path = Path.GetFullPath("GameLogs", Application.persistentDataPath);
-                System.Console.WriteLine($"android path: {path}");
+                GameLogger.Logger.LogMessage($"android path: {path}");
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 var game = GameLogger.Builder.ToString();
                 var log = Path.Combine(path, $"{DateTime.Now:u}_{Utils.GetMap()}.txt".Replace(":", "-"));
