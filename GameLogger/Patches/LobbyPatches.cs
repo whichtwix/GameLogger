@@ -14,7 +14,7 @@ namespace GameLogger
 
         public static void Postfix()
         {
-#if ANDROID
+#if !ANDROID
             if (GameLogger.Builder.Length > 0)
             {
                 if (!Directory.Exists("GameLogs")) Directory.CreateDirectory("GameLogs");
