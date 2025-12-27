@@ -1,7 +1,7 @@
 [GitHub all releases](https://img.shields.io/github/downloads/whichtwix/GameLogger/total?color=%20%2332CD32&style=plastic)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/whichtwix/GameLogger?style=plastic)
 # GameLogger
-GameLogger is a utility Among Us mod that logs the main events that can occur during a game, allowing people to look over the general round. It writes to .txt files kept at ```your among us folder/GameLogs/```.
+GameLogger is a utility Among Us mod that logs the main events that can occur during a game, allowing people to look over the general round. It writes to .txt files kept at ```your among us folder/GameLogs/``` if on PC or ```Android\data\dev.allofus.starlight\files\GameLogs\``` on Android.
 
 the events it logs about include:
 - Kills
