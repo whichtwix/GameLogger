@@ -1,0 +1,15 @@
+{
+  "Name": "GameLogger",
+  "Description": "A utility mod that records the events of each game",
+  "Tags": [
+    "Utility",
+    "Data Collection"
+  ],
+  "License": "GPLv3",
+  "Authors": [
+    "whichtwix"
+  ],
+  "Links": {
+    "Source": "https://github.com/whichtwix/GameLogger"
+  }
+}
