@@ -27,6 +27,16 @@ namespace GameLogger
             return $"{player.PlayerName} {player.ColorName}";
         }
 
+        public static NetworkedPlayerInfo GetPlayer(int playerid)
+        {
+            foreach (var player in GameData.Instance.AllPlayers)
+            {
+                if (player.PlayerId == playerid) return player;
+            }
+
+            return null;
+        }
+
         public static string GetLocation(PlayerControl player)
         {
             HudManager.Instance.InitMap();

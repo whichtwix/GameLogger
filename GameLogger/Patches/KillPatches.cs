@@ -20,7 +20,7 @@ namespace GameLogger
 
             if (resultFlags.HasFlag(MurderResultFlags.FailedProtected) || (resultFlags.HasFlag(MurderResultFlags.DecisionByHost) && target.protectedByGuardianId > -1))
             {
-                Utils.Write($"{killer} failed to kill {victim} {location}");
+                Utils.Write($"{killer} failed to kill {victim} {location} due to {Utils.GetPlayer(target.protectedByGuardianId).PlayerName}'s protection");
             }
             else if (resultFlags.HasFlag(MurderResultFlags.Succeeded) || resultFlags.HasFlag(MurderResultFlags.DecisionByHost))
             {
