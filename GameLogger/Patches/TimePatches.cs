@@ -14,19 +14,11 @@ namespace GameLogger
 
         public static void Start()
         {
+            GameLogger.Logger.LogMessage("ShipStatus.Awake reached");
+
             Watch.Start();
 
             Utils.Write($"Started game on {Utils.GetMap()} - game mode: {GameOptionsManager.Instance.currentGameMode}");
-        }
-
-        [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.OnGameEnd))]
-        [HarmonyPostfix]
-
-        public static void End()
-        {
-            Watch.Stop();
-            Utils.Write($"Game finished in {Watch.Elapsed.Minutes} minutes");
-            Watch.Reset();
         }
 
         [HarmonyPatch(typeof(AmongUsClient), nameof(AmongUsClient.OnDisconnected))]

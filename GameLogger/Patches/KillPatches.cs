@@ -9,34 +9,34 @@ namespace GameLogger
     {
         public static Dictionary<string, int> ImpKills = [];
 
-        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
-        [HarmonyPrefix]
+//[HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
+//[HarmonyPostfix]
 
-        public static void Prefix(PlayerControl __instance, ref PlayerControl target, ref MurderResultFlags resultFlags)
+public static void LogKill(PlayerControl __instance, PlayerControl target, MurderResultFlags resultFlags)
+{
+    var killer = Utils.FullName(__instance.Data);
+    var victim = Utils.FullName(target.Data);
+    var location = "";
+
+    if (resultFlags.HasFlag(MurderResultFlags.FailedProtected) || (resultFlags.HasFlag(MurderResultFlags.DecisionByHost) && target.protectedByGuardianId > -1))
+    {
+        var ga = Utils.GetPlayer(target.protectedByGuardianId);
+        Utils.Write($"{killer} failed to kill {victim} {location} due to protection by {Utils.FullName(ga)}");
+    }
+    else if (resultFlags.HasFlag(MurderResultFlags.Succeeded) || resultFlags.HasFlag(MurderResultFlags.DecisionByHost))
+    {
+        Utils.Write($"{killer} killed {victim} {location}");
+
+        if (ImpKills.TryGetValue(killer, out int kills))
         {
-            var killer = Utils.FullName(__instance.Data);
-            var victim = Utils.FullName(target.Data);
-            var location = Utils.GetLocation(target);
-
-            if (resultFlags.HasFlag(MurderResultFlags.FailedProtected) || (resultFlags.HasFlag(MurderResultFlags.DecisionByHost) && target.protectedByGuardianId > -1))
-            {
-                var ga = Utils.GetPlayer(target.protectedByGuardianId);
-                Utils.Write($"{killer} failed to kill {victim} {location} due to protection by {Utils.FullName(ga)}");
-            }
-            else if (resultFlags.HasFlag(MurderResultFlags.Succeeded) || resultFlags.HasFlag(MurderResultFlags.DecisionByHost))
-            {
-                Utils.Write($"{killer} killed {victim} {location}");
-
-                if (ImpKills.TryGetValue(killer, out int kills))
-                {
-                    ImpKills[killer] = kills + 1;
-                }
-                else
-                {
-                    ImpKills.Add(killer, 1);
-                }
-            }
+            ImpKills[killer] = kills + 1;
         }
+        else
+        {
+            ImpKills.Add(killer, 1);
+        }
+    }
+}
 
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.ProtectPlayer))]
         [HarmonyPostfix]

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using AmongUs.GameOptions;
 
 namespace GameLogger
 {
@@ -8,6 +9,7 @@ namespace GameLogger
 
     public class MeetingLogs
     {
+        public static HashSet<byte> GhostsLogged = new();
         public static List<byte> VoteOrder = new();
 
         [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.CoIntro))]
@@ -34,6 +36,7 @@ namespace GameLogger
             }
 
             Utils.Write($"Meeting started by {Utils.FullName(reporter)}", action, bodytext);
+
         }
 
         // Fires once per player as their vote registers - records the real cast order
