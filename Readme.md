@@ -1,15 +1,20 @@
 [GitHub all releases](https://img.shields.io/github/downloads/whichtwix/GameLogger/total?color=%20%2332CD32&style=plastic)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/whichtwix/GameLogger?style=plastic)
 # GameLogger
+**originally written by Twix, edited for the latest update by katzklaw**
+
+
 GameLogger is a utility Among Us mod that logs the main events that can occur during a game, allowing people to look over the general round. It writes to .txt files kept at ```your among us folder/GameLogs/``` if on PC or ```Android\data\dev.allofus.starlight\files\GameLogs\``` on Android.
 
-the events it logs about include:
+the events it logs include:
 - Kills
 - Sabotages
 - Meetings
 - Tasks
 - Game start and end
 - Roles
+- Votes in the order they were cast
+- task completion status for each crewmate at game end
 
 If anyone has suggestions of what else could be recorded do let me know!
 
