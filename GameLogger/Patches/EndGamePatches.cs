@@ -42,6 +42,25 @@ namespace GameLogger
             Utils.Write(text);
 
             foreach (var killer in KillLogs.ImpKills) Utils.Write($"{killer.Key} killed {killer.Value} players");
+
+            string taskText = "Task Completion:\n";
+            foreach (var player in PlayerControl.AllPlayerControls)
+            {
+                if (player.Data.Role.IsImpostor) continue;
+
+                var tasks = player.Data.Tasks;
+                if (tasks == null || tasks.Count == 0) continue;
+
+                int total = tasks.Count;
+                int completed = 0;
+                foreach (var task in tasks)
+                {
+                    if (task.Complete) completed++;
+                }
+
+                taskText += $"{Utils.FullName(player.Data)} {completed}/{total}\n";
+            }
+            Utils.Write(taskText);
         }
     }
 }

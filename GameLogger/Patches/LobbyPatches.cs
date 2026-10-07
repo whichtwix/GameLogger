@@ -9,10 +9,12 @@ namespace GameLogger
 
     public class LobbyLogs
     {
-        [HarmonyPatch(typeof(LobbyBehaviour), nameof(LobbyBehaviour.Start))]
+        [HarmonyPatch(typeof(GameStartManager), nameof(GameStartManager.Start))]
         [HarmonyPostfix]
 
-        public static void Postfix()
+        public static void Postfix() => Save();
+
+        public static void Save()
         {
             if (OperatingSystem.IsAndroid())
             {
@@ -39,10 +41,11 @@ namespace GameLogger
                     GameLogger.Builder.Clear();
                 }
             }
-            
+
             TimerLogs.Watch.Reset();
             TaskLogs.State = TaskLogs.TaskStates.None;
             KillLogs.ImpKills.Clear();
+            MeetingLogs.GhostsLogged.Clear();
         }
     }
 }

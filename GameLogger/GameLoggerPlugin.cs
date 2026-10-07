@@ -22,7 +22,7 @@ public partial class GameLogger : BasePlugin
 
     public override void Load()
     {
-        LogVotes = Config.Bind("Settings", "Log Votes", false, "Whether to log votes, this will be spammy");
+        LogVotes = Config.Bind("Settings", "Log Votes", true, "Whether to log votes, this will be spammy");
         Logger = Log;
         Harmony.PatchAll();
     }

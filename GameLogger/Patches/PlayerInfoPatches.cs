@@ -21,7 +21,7 @@ namespace GameLogger
             }
             Utils.Write(roletext);
         }
-
+/*
         [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CoSetRole))]
         [HarmonyPostfix]
 
@@ -33,7 +33,7 @@ namespace GameLogger
                 Utils.Write(text);
             }
         }
-
+*/
         [HarmonyPatch(typeof(GameData), nameof(GameData.HandleDisconnect), typeof(PlayerControl), typeof(DisconnectReasons))]
         [HarmonyPostfix]
 
