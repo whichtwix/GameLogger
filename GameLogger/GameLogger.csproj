@@ -3,7 +3,8 @@
 		<TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <DebugType>embedded</DebugType>
-        <author>whichtwix</author>
+        <VersionPrefix>2.0.0</VersionPrefix>
+        <author>whichtwix and katzklaw</author>
     </PropertyGroup>
 
     <ItemGroup>

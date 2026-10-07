@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AmongUs.GameOptions;
 using HarmonyLib;
+using UnityEngine;
 
 namespace GameLogger
 {
@@ -37,13 +38,7 @@ namespace GameLogger
                     var id = player.PlayerId;
                     var dead = player.Data.IsDead;
                     var role = player.Data.Role.Role;
-                    var known = WasDead.TryGetValue(id, out var wasDead);
-
-                    if (known && dead && !wasDead && !player.Data.Disconnected
-                        && MeetingHud.Instance == null && ExileController.Instance == null)
-                    {
-                        Utils.Write($"{Utils.FullName(player.Data)} died {Utils.GetLocation(player)}");
-                    }
+                    var known = WasDead.TryGetValue(id, out _);
 
                     if (known && dead && role != RoleTypes.CrewmateGhost && role != RoleTypes.ImpostorGhost
                         && (!LastRole.TryGetValue(id, out var last) || last != role))
